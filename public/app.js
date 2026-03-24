@@ -1,4 +1,5 @@
-const API = "/api";
+// Vercel reserves /api/* for api/*.py only; root app.py is reached at /health, /predict, /docs.
+const API = "";
 
 function splitList(raw) {
   if (!raw || !String(raw).trim()) return [];

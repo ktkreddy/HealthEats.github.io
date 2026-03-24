@@ -35,10 +35,11 @@ def _load_dataset():
 
 dataset = _load_dataset()
 
+# Docs at /docs (not /api/docs): on Vercel, /api/* is routed only to api/*.py, not root app.py.
 app = FastAPI(
     title="Diet Recommendation API",
-    docs_url="/api/docs",
-    openapi_url="/api/openapi.json",
+    docs_url="/docs",
+    openapi_url="/openapi.json",
     redoc_url=None,
 )
 
@@ -113,12 +114,11 @@ def _predict(prediction_input: PredictionIn) -> PredictionOut:
 
 
 @app.get("/")
-@app.get("/api/")
-def home():
+@app.get("/health")
+def health():
     return {"health_check": "OK"}
 
 
 @app.post("/predict/", response_model=PredictionOut)
-@app.post("/api/predict/", response_model=PredictionOut)
 def update_item(prediction_input: PredictionIn):
     return _predict(prediction_input)
