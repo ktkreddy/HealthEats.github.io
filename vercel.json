@@ -1,3 +1,20 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/predict/(.*)", "dest": "/app.py" },
+    { "src": "/health", "dest": "/app.py" },
+    { "src": "/docs(.*)", "dest": "/app.py" },
+    { "src": "/openapi.json", "dest": "/app.py" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
 }
