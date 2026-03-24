@@ -1,5 +1,3 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "pip install -r requirements.txt && python -c \"import fastapi; print('fastapi ok', fastapi.__version__)\"",
-  "buildCommand": "echo 'HealthEats: app.py + public/'"
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
