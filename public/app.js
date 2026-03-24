@@ -1,6 +1,6 @@
-// Backend is deployed separately (Railway). Update this URL after backend deploy.
-// Local dev: "http://127.0.0.1:8080"
-const API = "https://healtheatsbackend-production.up.railway.app";
+// Same Vercel deployment: app.py handles /predict/, /health, /docs
+// Local dev: start `uvicorn app:app --port 8080` and change to "http://127.0.0.1:8080"
+const API = "";
 
 function splitList(raw) {
   if (!raw || !String(raw).trim()) return [];
