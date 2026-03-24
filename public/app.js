@@ -1,5 +1,6 @@
-// Vercel reserves /api/* for api/*.py only; root app.py is reached at /health, /predict, /docs.
-const API = "";
+// Backend is deployed separately (Railway). Update this URL after backend deploy.
+// Local dev: "http://127.0.0.1:8080"
+const API = "https://healtheatsbackend-production.up.railway.app";
 
 function splitList(raw) {
   if (!raw || !String(raw).trim()) return [];
