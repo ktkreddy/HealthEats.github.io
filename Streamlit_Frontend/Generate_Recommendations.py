@@ -1,5 +1,9 @@
+import os
+
 import requests
-import json
+
+API_URL = os.environ.get("API_URL", "http://backend:8080").rstrip("/")
+
 
 class Generator:
     def __init__(self,nutrition_input:list,ingredients:list=[],ingredients_to_avoid_txt=[],params:dict={'n_neighbors':5,'return_distance':False}):
@@ -21,5 +25,10 @@ class Generator:
             'ingredients_to_avoid_txt':self.ingredients_to_avoid_txt,
             'params':self.params
         }
-        response=requests.post(url='http://backend:8080/predict/',data=json.dumps(request))
+        response = requests.post(
+            url=f"{API_URL}/predict/",
+            json=request,
+            headers={"Content-Type": "application/json"},
+            timeout=120,
+        )
         return response

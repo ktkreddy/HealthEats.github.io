@@ -35,17 +35,19 @@ def extract_data(dataframe,ingredients,ingredients_to_avoid):
 def extract_ingredient_filtered_data(dataframe, include_ingredients, ingredients_to_avoid):
     extracted_data = dataframe.copy()
 
-    # Create regex for required ingredients
-    include_regex = ''.join(map(lambda x: f'(?=.*{x})', include_ingredients))
+    include_list = [x for x in (include_ingredients or []) if x and str(x).strip()]
+    if include_list:
+        include_regex = ''.join(map(lambda x: f'(?=.*{re.escape(str(x))})', include_list))
+        extracted_data = extracted_data[
+            extracted_data['RecipeIngredientParts'].str.contains(include_regex, regex=True, flags=re.IGNORECASE)
+        ]
 
-    # Create regex for excluded ingredients
-    exclude_regex = '|'.join(map(lambda x: f'(?=.*{x})', ingredients_to_avoid))
-
-    # Filter to include required ingredients
-    extracted_data = extracted_data[extracted_data['RecipeIngredientParts'].str.contains(include_regex, regex=True, flags=re.IGNORECASE)]
-
-    # Filter out excluded ingredients
-    extracted_data = extracted_data[~extracted_data['RecipeIngredientParts'].str.contains(exclude_regex, regex=True, flags=re.IGNORECASE)]
+    avoid_list = [x for x in (ingredients_to_avoid or []) if x and str(x).strip()]
+    if avoid_list:
+        exclude_regex = '|'.join(map(lambda x: f'(?=.*{re.escape(str(x))})', avoid_list))
+        extracted_data = extracted_data[
+            ~extracted_data['RecipeIngredientParts'].str.contains(exclude_regex, regex=True, flags=re.IGNORECASE)
+        ]
 
     return extracted_data
 

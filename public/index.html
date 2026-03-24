@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HealthEats — Diet recommendations</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1>HealthEats</h1>
+      <p class="lede">
+        Content-based recipe recommendations powered by scikit-learn and FastAPI. This static UI replaces the Streamlit app on Vercel; the original Streamlit pages still run locally or on Streamlit Cloud.
+      </p>
+      <nav class="links">
+        <a href="/api/docs" target="_blank" rel="noopener">OpenAPI docs</a>
+        <a href="https://github.com/ktkreddy/HealthEats.github.io" target="_blank" rel="noopener">Upstream repo</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card" id="custom">
+        <h2>Custom food recommendation</h2>
+        <p class="hint">Set nine nutrition targets (same order as the API) and optional ingredient filters.</p>
+        <form id="predict-form">
+          <div class="grid-3">
+            <label>Calories <input name="Calories" type="number" value="500" min="0" max="2000" /></label>
+            <label>Fat (g) <input name="FatContent" type="number" value="20" min="0" max="100" step="0.1" /></label>
+            <label>Saturated fat (g) <input name="SaturatedFatContent" type="number" value="5" min="0" max="13" step="0.1" /></label>
+            <label>Cholesterol (mg) <input name="CholesterolContent" type="number" value="50" min="0" max="300" /></label>
+            <label>Sodium (mg) <input name="SodiumContent" type="number" value="400" min="0" max="2300" /></label>
+            <label>Carbs (g) <input name="CarbohydrateContent" type="number" value="60" min="0" max="325" /></label>
+            <label>Fiber (g) <input name="FiberContent" type="number" value="8" min="0" max="50" step="0.1" /></label>
+            <label>Sugar (g) <input name="SugarContent" type="number" value="10" min="0" max="40" step="0.1" /></label>
+            <label>Protein (g) <input name="ProteinContent" type="number" value="25" min="0" max="200" step="0.1" /></label>
+          </div>
+          <label class="full">
+            Include ingredients (semicolon-separated, optional)
+            <input name="include" type="text" placeholder="e.g. chicken;lemon" />
+          </label>
+          <label class="full">
+            Avoid ingredients (semicolon-separated, optional)
+            <input name="avoid" type="text" placeholder="e.g. peanuts" />
+          </label>
+          <label>
+            Number of neighbors
+            <input name="n_neighbors" type="number" value="5" min="1" max="20" />
+          </label>
+          <button type="submit">Get recommendations</button>
+        </form>
+        <p id="status" class="status" aria-live="polite"></p>
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <footer>
+      <small
+        >Deployed at <a href="https://health-eats-github-io.vercel.app">health-eats-github-io.vercel.app</a> · API
+        <code>/api/predict/</code> · Health <code>/api/</code></small
+      >
+    </footer>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

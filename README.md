@@ -92,3 +92,15 @@ PS: You should have docker and docker-compose already installed
 ### Use the hosted version on Streamlit Cloud
 
 https://diet-recommendation-system.streamlit.app/
+
+### Deploy on Vercel
+
+**Live site:** [https://health-eats-github-io.vercel.app](https://health-eats-github-io.vercel.app)
+
+This repo includes a **FastAPI** serverless entry at `api/index.py` (Mangum), a root `requirements.txt`, and a static UI in `public/`. Streamlit is not run on Vercel; use the web UI at `/` or call `POST /api/predict/`.
+
+1. Ensure `Data/dataset.csv.gz` exists (the repository ships a small demo file; replace it with your full preprocessed dataset from the notebook for production).
+2. Import the project in [Vercel](https://vercel.com/) and deploy (framework preset: Other, or auto-detect).
+3. Optional: set `CORS_ORIGINS` to a comma-separated allowlist if you embed the API elsewhere (for example `https://health-eats-github-io.vercel.app`).
+
+OpenAPI docs: [https://health-eats-github-io.vercel.app/api/docs](https://health-eats-github-io.vercel.app/api/docs) (same path on any deployment: `/api/docs`).
