@@ -97,7 +97,7 @@ https://diet-recommendation-system.streamlit.app/
 
 **Live site:** [https://health-eats-github-io.vercel.app](https://health-eats-github-io.vercel.app)
 
-This repo includes a **FastAPI** serverless entry at `api/index.py` (Mangum), a root `requirements.txt`, and a static UI in `public/`. Streamlit is not run on Vercel; use the web UI at `/` or call `POST /api/predict/`.
+This repo includes a **FastAPI** app exported from root `main.py` (native ASGI on Vercel; no Mangum), a root `requirements.txt`, and a static UI in `public/`. Streamlit is not run on Vercel; use the web UI at `/` or call `POST /api/predict/`.
 
 1. Ensure `Data/dataset.csv.gz` exists (the repository ships a small demo file; replace it with your full preprocessed dataset from the notebook for production).
 2. Import the project in [Vercel](https://vercel.com/) and deploy (framework preset: Other, or auto-detect).
