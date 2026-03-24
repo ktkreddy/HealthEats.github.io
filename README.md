@@ -97,7 +97,7 @@ https://diet-recommendation-system.streamlit.app/
 
 **Live site:** [https://health-eats-github-io.vercel.app](https://health-eats-github-io.vercel.app)
 
-This repo includes a **FastAPI** app exported from `api/index.py` (native ASGI on Vercel; `vercel.json` `functions` only match files under `api/`). `vercel.json` **rewrites** `/api/:path*` → `/api` so subroutes like `/api/predict/` reach the same function. Root `requirements.txt` and `public/` static UI. Streamlit is not run on Vercel; use the web UI at `/` or call `POST /api/predict/`. Dependencies pin **Starlette 0.41.x** (avoid Starlette 1.x on Vercel; it can break the Python runtime handler detection). Local API: `uvicorn api.index:app --host 127.0.0.1 --port 8080 --reload` from the repo root.
+This repo includes a **FastAPI** app exported from **root `main.py`** (native ASGI on Vercel). Use a **single** `main.py` at the project root—not `api/index.py` for the app—because each file under `api/` becomes a **separate** serverless function; `/api` would work but `/api/predict` would 404. Root `requirements.txt` and `public/` static UI. Streamlit is not run on Vercel; use the web UI at `/` or call `POST /api/predict/`. Dependencies pin **Starlette 0.41.x** (avoid Starlette 1.x on Vercel; it can break the Python runtime handler detection). Local API: `uvicorn main:app --host 127.0.0.1 --port 8080 --reload` from the repo root. If the function times out on cold start, raise **max duration** under Project → Settings → Functions.
 
 1. Ensure `Data/dataset.csv.gz` exists (the repository ships a small demo file; replace it with your full preprocessed dataset from the notebook for production).
 2. Import the project in [Vercel](https://vercel.com/) and deploy (framework preset: Other, or auto-detect).
